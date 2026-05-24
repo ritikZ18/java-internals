@@ -83,7 +83,31 @@ public void process( long sequence, int  type, int value, long publishTimestamp)
 
 }
 
-// 
+// imp, this func called after donee 
+// off heap memory is not freed by gcc, 
+// can cause memory leak
+
+public void free(){ 
+    UNSAFE.freeMemory(baseAddress);
+    System.out.println("[offHeapMemory] off-heap memory freed")  ;
+}
+
+public LatencyRecorder getRecorder(){ 
+    return recorder ; 
+}
+
+public void dumpSlot(int slot) { 
+    long addr = baseAddress + ( (long) slot * SLOT_SIZE);
+
+        System.out.printf(
+                "[OffHeap] slot=%d seq=%d type=%d val=%d%n",
+                slot,
+                UNSAFE.getLong(addr + OFFSET_SEQUENCE),
+                UNSAFE.getInt(addr + OFFSET_TYPE),
+                UNSAFE.getInt(addr + OFFSET_VALUE)
+        );
+
+}
 
 
 

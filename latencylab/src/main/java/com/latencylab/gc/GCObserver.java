@@ -38,7 +38,7 @@ public class GCObserver{
 
                     long pauseMs = info.getGcInfo().getDuration();
                     String gcName = info.getGcName();
-                    String gcCause = info.GcCause();
+                    String gcCause = info.getGcCause();
 
                     totalGCCount.incrementAndGet();
                     totalGCPauseMs.addAndGet(pauseMs);

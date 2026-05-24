@@ -20,7 +20,7 @@ public class LatencyRecorder {
 
     public void record(long latencyNanos) {
         if (latencyNanos > 0) {
-            historgram.recordValue(latencyNanos);
+            histogram.recordValue(latencyNanos);
         }
     }
 

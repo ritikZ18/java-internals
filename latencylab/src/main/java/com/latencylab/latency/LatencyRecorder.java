@@ -46,5 +46,20 @@ public class LatencyRecorder {
     public void reset() {
         histogram.reset();
     }
+        public synchronized double getPercentile(double percentile) {
+        return histogram.getValueAtPercentile(percentile);
+    }
+
+    public synchronized long getMax() {
+        return histogram.getMaxValue();
+    }
+
+    public synchronized long getCount() {
+        return histogram.getTotalCount();
+    }
+
+    public String getName() {
+        return name;
+    }
 
 }

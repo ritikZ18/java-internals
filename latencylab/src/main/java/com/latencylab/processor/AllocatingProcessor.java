@@ -13,7 +13,7 @@ import com.latencylab.latency.LatencyRecorder;
 public class AllocatingProcessor { 
 
 
-    private final LatencyRecorder recorder = new LatencyRecorder("Allocating Resource"); 
+    private final LatencyRecorder recorder = new LatencyRecorder(); 
     
 
     public void process(long sequence, int type, int value, long publishTimestamp){ 

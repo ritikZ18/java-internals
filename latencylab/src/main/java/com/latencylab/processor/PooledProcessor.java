@@ -17,7 +17,7 @@ import com.latencylab.latency.LatencyRecorder;
 
 public class PooledProcessor { 
 
-    private final LatencyRecorder recorder = new LatencyRecorder("PooledProcessor"); 
+    private final LatencyRecorder recorder = new LatencyRecorder(); 
 
     // pre allocate buffer pool, borrow/return pattern 
     private final ArrayBlockingQueue<byte[]> bufferPool ; 

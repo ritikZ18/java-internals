@@ -14,7 +14,7 @@ public class LatencyRecorder {
 
     private final String name;
 
-    public LatencyRecorder(String name) {
+    public LatencyRecorder() {
         this.name = name;
     }
 

@@ -9,13 +9,12 @@
 package com.latencylab.cpu;
 
 import java.lang.management.ManagementFactory;
-
-import com.sun.management.OperatingSystemMXBean;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.sun.management.OperatingSystemMXBean;
 
 public class CPUMonitor {
 
@@ -64,6 +63,35 @@ public class CPUMonitor {
 
      }
 
+      public void printSummary() {
+        double sumProcess = 0;
+        double sumSystem = 0;
+        double maxProcess = 0;
+        double maxSystem = 0;
+
+        int samples = Math.min(index, 60);
+
+        for (int i = 0; i < samples; i++) {
+            sumProcess += processCpuHistory[i];
+            sumSystem += systemCpuHistory[i];
+            maxProcess = Math.max(maxProcess, processCpuHistory[i]);
+            maxSystem = Math.max(maxSystem, systemCpuHistory[i]);
+        }
+
+        System.out.println("\n=== CPU Summary ===");
+        System.out.printf(
+                "  Avg process CPU : %.1f%%%n",
+                samples == 0 ? 0 : sumProcess / samples
+        );
+        System.out.printf("  Max process CPU : %.1f%%%n", maxProcess);
+        System.out.printf(
+                "  Avg system CPU  : %.1f%%%n",
+                samples == 0 ? 0 : sumSystem / samples
+        );
+        System.out.printf("  Max system CPU  : %.1f%%%n", maxSystem);
+    }
+
     public void stop() {
+        scheduler.shutdown();
     }
 }

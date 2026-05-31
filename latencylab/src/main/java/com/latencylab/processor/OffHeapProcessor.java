@@ -19,7 +19,6 @@ import java.lang.reflect.Field;
 import com.latencylab.latency.LatencyRecorder;
 
 import sun.misc.Unsafe;
-import static sun.misc.Unsafe.getUnsafe;
 
 
 
@@ -37,7 +36,7 @@ private  static final int OFFSET_VALUE = 12 ;
 private final long baseAddress ; 
 private final int slotCount ; 
 
-private final LatencyRecorder recorder = new LatencyRecorder("OffHeapProcessor") ; 
+private final LatencyRecorder recorder = new LatencyRecorder() ; 
 
 public OffHeapProcessor(int slotCount){ 
     this.slotCount = slotCount ; 
@@ -112,14 +111,14 @@ public void dumpSlot(int slot) {
 
 
 
-private static Unsafe geUnsafe(){ 
+private static Unsafe getUnsafe(){ 
     try {
         Field f = Unsafe.class.getDeclaredField("theUnsafe"); 
         f.setAccessible(true);
         return  (Unsafe) f.get(null);
 
     } catch (Exception e) {
-        throw new RuntimeException("Cannot get Unsafe Instance.");
+        throw new RuntimeException("Cannot get Unsafe Instance.", e);
     }
 }
 
